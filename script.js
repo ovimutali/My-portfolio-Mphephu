@@ -1,4 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const menuBtn = document.querySelector('.menu-btn');
+  const navEl = document.querySelector('.nav nav');
+
+  if (menuBtn && navEl) {
+    menuBtn.setAttribute('aria-expanded', 'false');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = navEl.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navEl.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (navEl.classList.contains('open')) {
+          navEl.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+
   const placeholders = document.querySelectorAll('.media-placeholder');
 
   if (!placeholders || placeholders.length === 0) {
